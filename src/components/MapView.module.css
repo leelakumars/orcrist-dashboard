@@ -3,6 +3,44 @@
   height: 100%;
 }
 
+/* Pulse marker for selected incident */
+.pulseWrap {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.pulseDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+}
+
+.pulseRing {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid;
+  opacity: 0;
+  animation: pulseOut 2s ease-out infinite;
+}
+
+.pulseRing2 {
+  animation-delay: 0.8s;
+}
+
+@keyframes pulseOut {
+  0%   { transform: scale(0.5); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
 :global(.sentinel-popup .maplibregl-popup-content) {
   background: transparent;
   padding: 0;
