@@ -121,11 +121,11 @@ export const SEVERITY_TREND = {
 
 // Alert ticker messages — shown as scrolling strip
 export const ALERT_TICKER = [
-  { id:"t-001", severity:"CRITICAL", text:"Signal blackout confirmed — sector 9. Investigation ongoing." },
-  { id:"t-002", severity:"CRITICAL", text:"RF jamming detected zone 3. Assets rerouted." },
-  { id:"t-003", severity:"HIGH",     text:"Border sensor triggered — grid 44N. Patrol en route." },
-  { id:"t-004", severity:"HIGH",     text:"Ground Team Delta comms lost. Last position grid 47F." },
-  { id:"t-005", severity:"MEDIUM",   text:"Checkpoint 3B throughput up 40%. Monitoring." },
-  { id:"t-006", severity:"MEDIUM",   text:"Sensor Array 14B intermittent. Coverage gap sector 6." },
-  { id:"t-007", severity:"HIGH",     text:"Drone incursion detected — restricted zone. UAV-7 tasked." },
+  { id:"t-001", severity:"CRITICAL", text:"Sector 9 went dark at 03:02Z. Still no comms. Vasquez is on it." },
+  { id:"t-002", severity:"CRITICAL", text:"Something is jamming zone 3. Osprey rerouted around it." },
+  { id:"t-003", severity:"HIGH",     text:"Fence cut at grid 44N. Patrol is 8 minutes out." },
+  { id:"t-004", severity:"HIGH",     text:"Lost contact with Delta at 19:18Z. Last known grid 47F." },
+  { id:"t-005", severity:"MEDIUM",   text:"Checkpoint 3B is moving 40% more traffic than usual. Worth watching." },
+  { id:"t-006", severity:"MEDIUM",   text:"Array 14B dropping in and out. Sector 6 has a gap right now." },
+  { id:"t-007", severity:"HIGH",     text:"Small drone in restricted airspace. Falcon tasked to intercept." },
 ];
