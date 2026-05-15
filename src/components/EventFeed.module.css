@@ -11,7 +11,7 @@
   gap: 8px;
   padding: 12px 14px 10px;
   border-bottom: 1px solid var(--border-dim);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: var(--text-dim);
@@ -23,12 +23,12 @@
   color: var(--text-secondary);
   padding: 2px 7px;
   border-radius: 3px;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .hint {
   margin-left: auto;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-dim);
   letter-spacing: 0.05em;
   font-weight: 400;
@@ -73,7 +73,7 @@
 }
 
 .title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--text-primary);
   white-space: nowrap;
@@ -92,14 +92,14 @@
 }
 
 .source {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.05em;
   color: var(--accent);
 }
 
 .ts {
-  font-size: 11px;
+  font-size: 12px;
   font-family: 'IBM Plex Mono', monospace;
   color: var(--text-dim);
 }
