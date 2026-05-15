@@ -1,0 +1,190 @@
+.panel {
+  overflow-y: auto;
+  flex: 1;
+  padding: 12px 14px;
+}
+
+.section {
+  margin-bottom: 4px;
+}
+
+.sectionLabel {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border-dim);
+  margin: 12px 0;
+}
+
+/* Hourly bars */
+.hourlyBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 60px;
+  padding-bottom: 18px;
+  position: relative;
+}
+
+.hourCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  gap: 3px;
+}
+
+.hourBar {
+  width: 100%;
+  background: var(--accent);
+  border-radius: 2px 2px 0 0;
+  opacity: 0.7;
+  min-height: 4px;
+  transition: opacity 0.1s;
+}
+
+.hourBar:hover { opacity: 1; }
+
+.hourTick {
+  font-size: 9px;
+  font-family: ui-monospace, monospace;
+  color: var(--text-dim);
+  position: absolute;
+  bottom: 0;
+}
+
+/* Mini bar chart */
+.chart { }
+
+.chartTitle {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.barRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.barLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  width: 72px;
+  flex-shrink: 0;
+}
+
+.barTrack {
+  flex: 1;
+  height: 8px;
+  background: var(--bg-raised);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 4px;
+  opacity: 0.85;
+  transition: width 0.3s ease;
+}
+
+.barValue {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  width: 18px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* Assets */
+.assetRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.assetRow:last-child { border-bottom: none; }
+
+.assetDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.assetName {
+  flex: 1;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.assetStatus {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
+/* Recent */
+.recentRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  width: 100%;
+  text-align: left;
+  border-radius: 4px;
+  background: var(--bg-raised);
+  margin-bottom: 5px;
+  border-left: 2px solid var(--border);
+  transition: background 0.1s;
+}
+
+.recentRow:hover {
+  background: var(--bg-hover);
+}
+
+.recentDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.recentTitle {
+  flex: 1;
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recentSev {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  flex-shrink: 0;
+}

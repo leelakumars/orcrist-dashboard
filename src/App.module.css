@@ -13,6 +13,7 @@
   overflow: hidden;
 }
 
+/* Left rail */
 .layerRail {
   width: 180px;
   flex-shrink: 0;
@@ -21,14 +22,29 @@
   overflow-y: auto;
 }
 
-.mapArea {
+/* Center column: map (top 60%) + table (bottom 40%) */
+.center {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  position: relative;
 }
 
+.mapArea {
+  flex: 0 0 60%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.tableArea {
+  flex: 1;
+  overflow: hidden;
+  background: var(--bg-base);
+}
+
+/* Right panel */
 .rightPanel {
   width: 360px;
   flex-shrink: 0;
@@ -36,18 +52,5 @@
   border-left: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-}
-
-.feedArea {
-  flex: 0 0 45%;
-  border-bottom: 1px solid var(--border);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.detailArea {
-  flex: 1;
   overflow: hidden;
 }

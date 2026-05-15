@@ -4,9 +4,9 @@ import TopBar from './components/TopBar';
 import StatsBar from './components/StatsBar';
 import LayerPanel from './components/LayerPanel';
 import MapView from './components/MapView';
-import EventFeed from './components/EventFeed';
-import DetailPanel from './components/DetailPanel';
 import TimelineScrubber from './components/TimelineScrubber';
+import IncidentTable from './components/IncidentTable';
+import RightPanel from './components/RightPanel';
 import { INCIDENTS } from './data/mockData';
 
 const DEFAULT_LAYERS = {
@@ -41,31 +41,40 @@ export default function App() {
       <StatsBar filteredCount={filteredIncidents.length} />
 
       <div className={styles.body}>
+
+        {/* Left layer rail */}
         <aside className={styles.layerRail}>
           <LayerPanel layers={layers} onToggle={toggleLayer} />
         </aside>
 
-        <div className={styles.mapArea}>
-          <MapView
-            selectedIncident={selectedIncident}
-            layers={layers}
-            onSelectIncident={handleSelect}
-          />
-          <TimelineScrubber timeRange={timeRange} onTimeRangeChange={setTimeRange} />
-        </div>
-
-        <aside className={styles.rightPanel}>
-          <div className={styles.feedArea}>
-            <EventFeed
+        {/* Center: map top + table bottom */}
+        <div className={styles.center}>
+          <div className={styles.mapArea}>
+            <MapView
+              selectedIncident={selectedIncident}
+              layers={layers}
+              onSelectIncident={handleSelect}
+            />
+            <TimelineScrubber timeRange={timeRange} onTimeRangeChange={setTimeRange} />
+          </div>
+          <div className={styles.tableArea}>
+            <IncidentTable
               incidents={filteredIncidents}
               selectedId={selectedIncident?.id}
               onSelect={handleSelect}
             />
           </div>
-          <div className={styles.detailArea}>
-            <DetailPanel incident={selectedIncident} />
-          </div>
+        </div>
+
+        {/* Right: tabbed panel */}
+        <aside className={styles.rightPanel}>
+          <RightPanel
+            incidents={filteredIncidents}
+            selectedIncident={selectedIncident}
+            onSelect={handleSelect}
+          />
         </aside>
+
       </div>
     </div>
   );
