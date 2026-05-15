@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react';
 import styles from './App.module.css';
 import TopBar from './components/TopBar';
+import AlertTicker from './components/AlertTicker';
+import ThreatBanner from './components/ThreatBanner';
 import StatsBar from './components/StatsBar';
 import LayerPanel from './components/LayerPanel';
 import MapView from './components/MapView';
@@ -13,13 +15,14 @@ const DEFAULT_LAYERS = {
   incidents: true,
   assets: true,
   corridors: true,
-  geofences: false,
+  geofences: true,
 };
 
 export default function App() {
   const [selectedIncident, setSelectedIncident] = useState(null);
   const [layers, setLayers] = useState(DEFAULT_LAYERS);
   const [timeRange, setTimeRange] = useState([0, 24]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const toggleLayer = useCallback((id) => {
     setLayers(prev => ({ ...prev, [id]: !prev[id] }));
@@ -28,7 +31,18 @@ export default function App() {
   const filteredIncidents = INCIDENTS.filter(inc => {
     const d = new Date(inc.timestamp);
     const h = d.getUTCHours() + d.getUTCMinutes() / 60;
-    return h >= timeRange[0] && h <= timeRange[1];
+    const inWindow = h >= timeRange[0] && h <= timeRange[1];
+    if (!inWindow) return false;
+    if (!searchQuery) return true;
+    const q = searchQuery.toLowerCase();
+    return (
+      inc.title.toLowerCase().includes(q) ||
+      inc.source.toLowerCase().includes(q) ||
+      inc.type.toLowerCase().includes(q) ||
+      inc.severity.toLowerCase().includes(q) ||
+      inc.analyst.toLowerCase().includes(q) ||
+      inc.id.toLowerCase().includes(q)
+    );
   });
 
   const handleSelect = useCallback((inc) => {
@@ -38,16 +52,15 @@ export default function App() {
   return (
     <div className={styles.shell}>
       <TopBar isLive={true} />
+      <AlertTicker />
+      <ThreatBanner />
       <StatsBar filteredCount={filteredIncidents.length} />
 
       <div className={styles.body}>
-
-        {/* Left layer rail */}
         <aside className={styles.layerRail}>
-          <LayerPanel layers={layers} onToggle={toggleLayer} />
+          <LayerPanel layers={layers} onToggle={toggleLayer} onSearch={setSearchQuery} />
         </aside>
 
-        {/* Center: map top + table bottom */}
         <div className={styles.center}>
           <div className={styles.mapArea}>
             <MapView
@@ -66,7 +79,6 @@ export default function App() {
           </div>
         </div>
 
-        {/* Right: tabbed panel */}
         <aside className={styles.rightPanel}>
           <RightPanel
             incidents={filteredIncidents}
@@ -74,7 +86,6 @@ export default function App() {
             onSelect={handleSelect}
           />
         </aside>
-
       </div>
     </div>
   );

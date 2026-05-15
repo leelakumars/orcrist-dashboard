@@ -58,6 +58,17 @@
   letter-spacing: 0.02em;
 }
 
+.cardRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.spark {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
 .cardSub {
   font-size: 11px;
   color: var(--text-dim);

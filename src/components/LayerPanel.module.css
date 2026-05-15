@@ -4,6 +4,56 @@
   padding: 8px 0;
 }
 
+.searchWrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 10px 0;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 8px;
+  transition: border-color 0.15s;
+}
+
+.searchWrap:focus-within {
+  border-color: var(--accent);
+}
+
+.searchIcon {
+  font-size: 14px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.searchInput {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  color: var(--text-primary);
+  font-family: inherit;
+  min-width: 0;
+}
+
+.searchInput::placeholder {
+  color: var(--text-dim);
+}
+
+.clearBtn {
+  font-size: 10px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  padding: 1px 3px;
+  border-radius: 2px;
+  transition: color 0.1s;
+}
+
+.clearBtn:hover {
+  color: var(--text-secondary);
+}
+
 .header {
   font-size: 11px;
   font-weight: 700;

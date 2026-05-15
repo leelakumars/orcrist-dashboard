@@ -25,6 +25,49 @@ export const CORRIDORS = [
   },
 ];
 
+// Geofence zones drawn on the map
+export const GEOFENCES = [
+  {
+    id: "gf-001",
+    label: "Exclusion Zone A",
+    type: "EXCLUSION",
+    color: "#EF4444",
+    coordinates: [
+      [14.0, 52.55], [14.3, 52.55], [14.3, 52.35], [14.0, 52.35], [14.0, 52.55],
+    ],
+  },
+  {
+    id: "gf-002",
+    label: "Safe Corridor Buffer",
+    type: "SAFE",
+    color: "#10B981",
+    coordinates: [
+      [13.1, 52.0], [13.5, 52.0], [13.5, 51.75], [13.1, 51.75], [13.1, 52.0],
+    ],
+  },
+  {
+    id: "gf-003",
+    label: "Restricted Airspace",
+    type: "RESTRICTED",
+    color: "#F59E0B",
+    coordinates: [
+      [13.6, 52.7], [14.0, 52.7], [14.0, 52.5], [13.6, 52.5], [13.6, 52.7],
+    ],
+  },
+];
+
+// Paths for animated assets — arrays of [lng, lat] waypoints along corridors
+export const ASSET_PATHS = {
+  "asset-001": { // UAV-7 Falcon — flies Alpha corridor
+    path: [[13.2,52.6],[13.5,52.48],[13.8,52.4],[14.1,52.25],[14.3,52.1],[14.6,51.95],[14.9,51.8]],
+    speed: 0.0004,
+  },
+  "asset-004": { // UAV-3 Osprey — flies Charlie corridor
+    path: [[13.5,52.8],[13.75,52.68],[14.0,52.6],[14.3,52.45],[14.6,52.3],[14.9,52.15],[15.2,52.0]],
+    speed: 0.0003,
+  },
+};
+
 export const INCIDENTS = [
   { id:"inc-001", type:"MOVEMENT", title:"Unidentified vehicle cluster",       location:[13.82,52.38], corridor:"corridor-alpha",  severity:"HIGH",     timestamp:"2026-05-15T06:14:00Z", source:"SIGINT",  description:"Three vehicles moving in formation, diverging from expected route at waypoint 7.", analyst:"J. Reyes",   linked:["rpt-004","asset-002"] },
   { id:"inc-002", type:"REPORT",   title:"Checkpoint activity spike",          location:[14.21,51.72], corridor:"corridor-bravo",  severity:"MEDIUM",   timestamp:"2026-05-15T04:47:00Z", source:"HUMINT",  description:"Checkpoint 3B reported a 40% increase in throughput between 03:00–05:00 local.", analyst:"M. Okafor",  linked:["inc-005"] },
@@ -40,10 +83,10 @@ export const INCIDENTS = [
   { id:"inc-012", type:"ANOMALY",  title:"Drone incursion — restricted zone",  location:[13.71,52.20], corridor:"corridor-alpha",  severity:"CRITICAL",  timestamp:"2026-05-14T21:40:00Z", source:"RADAR",   description:"Small UAS tracked entering restricted airspace at altitude 150m.", analyst:"J. Reyes",   linked:["inc-008"] },
   { id:"inc-013", type:"MOVEMENT", title:"Ground team contact lost",           location:[14.70,52.10], corridor:"corridor-charlie",severity:"HIGH",     timestamp:"2026-05-14T19:22:00Z", source:"SIGINT",  description:"Ground Team Delta lost comms 19:18Z. Last known position grid 47F.", analyst:"M. Okafor",  linked:[] },
   { id:"inc-014", type:"REPORT",   title:"Unusual vehicle density — A10",      location:[13.30,52.45], corridor:"corridor-alpha",  severity:"LOW",      timestamp:"2026-05-14T18:05:00Z", source:"AIS",     description:"Civilian vehicle density on A10 elevated 60% above baseline for time of day.", analyst:"J. Reyes",   linked:[] },
-  { id:"inc-015", type:"ANOMALY",  title:"Power grid fluctuation — substation", location:[15.05,51.90], corridor:"corridor-alpha", severity:"MEDIUM",   timestamp:"2026-05-14T17:30:00Z", source:"Sensor",  description:"Voltage fluctuation detected at Forst substation. Duration 4 minutes.", analyst:"A. Vasquez", linked:[] },
+  { id:"inc-015", type:"ANOMALY",  title:"Power grid fluctuation",             location:[15.05,51.90], corridor:"corridor-alpha",  severity:"MEDIUM",   timestamp:"2026-05-14T17:30:00Z", source:"Sensor",  description:"Voltage fluctuation detected at Forst substation. Duration 4 minutes.", analyst:"A. Vasquez", linked:[] },
   { id:"inc-016", type:"MOVEMENT", title:"Waterway traffic anomaly",           location:[13.20,51.85], corridor:"corridor-bravo",  severity:"LOW",      timestamp:"2026-05-14T16:10:00Z", source:"AIS",     description:"Barge convoy paused mid-channel at waypoint 4. No distress signal.", analyst:"M. Okafor",  linked:[] },
   { id:"inc-017", type:"REPORT",   title:"Imagery update — objective 3",       location:[14.80,52.45], corridor:"corridor-charlie",severity:"LOW",      timestamp:"2026-05-14T14:00:00Z", source:"SAR",     description:"Updated satellite pass confirms no new construction at objective 3.", analyst:"J. Reyes",   linked:[] },
-  { id:"inc-018", type:"ANOMALY",  title:"Unexplained light signature",        location:[13.60,51.70], corridor:"corridor-bravo",  severity:"MEDIUM",   timestamp:"2026-05-14T02:44:00Z", source:"ELINT",   description:"Thermal anomaly detected at bearing 220 from post 4. Duration 22 minutes.", analyst:"A. Vasquez", linked:[] },
+  { id:"inc-018", type:"ANOMALY",  title:"Unexplained thermal signature",      location:[13.60,51.70], corridor:"corridor-bravo",  severity:"MEDIUM",   timestamp:"2026-05-14T02:44:00Z", source:"ELINT",   description:"Thermal anomaly detected at bearing 220 from post 4. Duration 22 minutes.", analyst:"A. Vasquez", linked:[] },
 ];
 
 export const ASSETS = [
@@ -68,5 +111,21 @@ export const TYPE_META = {
   ANOMALY:  { icon:"⚠", color:"#F97316" },
 };
 
-// severity → numeric weight for heatmap intensity
 export const SEVERITY_WEIGHT = { CRITICAL: 1.0, HIGH: 0.75, MEDIUM: 0.45, LOW: 0.2 };
+
+// Fake 7-day trend data for sparkline (day 0 = oldest, day 6 = today)
+export const SEVERITY_TREND = {
+  CRITICAL: [1, 2, 1, 3, 2, 3, 3],
+  HIGH:     [3, 2, 4, 3, 5, 4, 4],
+};
+
+// Alert ticker messages — shown as scrolling strip
+export const ALERT_TICKER = [
+  { id:"t-001", severity:"CRITICAL", text:"Signal blackout confirmed — sector 9. Investigation ongoing." },
+  { id:"t-002", severity:"CRITICAL", text:"RF jamming detected zone 3. Assets rerouted." },
+  { id:"t-003", severity:"HIGH",     text:"Border sensor triggered — grid 44N. Patrol en route." },
+  { id:"t-004", severity:"HIGH",     text:"Ground Team Delta comms lost. Last position grid 47F." },
+  { id:"t-005", severity:"MEDIUM",   text:"Checkpoint 3B throughput up 40%. Monitoring." },
+  { id:"t-006", severity:"MEDIUM",   text:"Sensor Array 14B intermittent. Coverage gap sector 6." },
+  { id:"t-007", severity:"HIGH",     text:"Drone incursion detected — restricted zone. UAV-7 tasked." },
+];
