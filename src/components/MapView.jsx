@@ -23,18 +23,19 @@ const INCIDENTS_GEOJSON = {
   })),
 };
 
-function corridorPolygon(coords, widthDeg = 0.08) {
-  const left = coords.map(([lng, lat]) => [lng - widthDeg * 0.6, lat + widthDeg]);
-  const right = [...coords].reverse().map(([lng, lat]) => [lng + widthDeg * 0.6, lat - widthDeg]);
+// Wider corridor bands — widthDeg controls thickness
+function corridorPolygon(coords, widthDeg = 0.18) {
+  const left  = coords.map(([lng, lat]) => [lng - widthDeg * 0.55, lat + widthDeg]);
+  const right = [...coords].reverse().map(([lng, lat]) => [lng + widthDeg * 0.55, lat - widthDeg]);
   return [...left, ...right, left[0]];
 }
 
 export default function MapView({ selectedIncident, layers, onSelectIncident }) {
-  const containerRef = useRef(null);
-  const mapRef = useRef(null);
+  const containerRef   = useRef(null);
+  const mapRef         = useRef(null);
   const assetMarkersRef = useRef([]);
   const pulseMarkersRef = useRef([]);
-  const popupRef = useRef(null);
+  const popupRef       = useRef(null);
 
   const clearAssetMarkers = useCallback(() => {
     assetMarkersRef.current.forEach(m => m.remove());
@@ -53,17 +54,17 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
       const color = isDegraded ? '#F59E0B' : '#10B981';
       const el = document.createElement('div');
       el.style.cssText = `
-        width:12px;height:12px;
+        width:14px;height:14px;
         background:${color};
         border:2px solid ${color}99;
         border-radius:2px;
         transform:rotate(45deg);
         cursor:pointer;
-        box-shadow:0 0 8px ${color}66;
+        box-shadow:0 0 10px ${color}88;
       `;
-      const popup = new maplibregl.Popup({ closeButton: false, offset: 12, className: 'sentinel-popup' })
+      const popup = new maplibregl.Popup({ closeButton: false, offset: 14, className: 'sentinel-popup' })
         .setHTML(`
-          <div style="font-size:12px;font-family:system-ui;color:#e2e8f0;padding:7px 10px;background:#181c22;border:1px solid #2a3140;border-radius:4px;min-width:150px">
+          <div style="font-size:12px;font-family:system-ui;color:#e2e8f0;padding:8px 10px;background:#181c22;border:1px solid #2a3140;border-radius:4px;min-width:150px">
             <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:${color};margin-bottom:3px">${asset.type} · ${asset.status}</div>
             <div style="font-weight:600">${asset.name}</div>
           </div>
@@ -80,9 +81,9 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
     const el = document.createElement('div');
     el.className = styles.pulseWrap;
     el.innerHTML = `
-      <div class="${styles.pulseRing}" style="border-color:${sev.color}"></div>
+      <div class="${styles.pulseRing}"  style="border-color:${sev.color}"></div>
       <div class="${styles.pulseRing} ${styles.pulseRing2}" style="border-color:${sev.color}"></div>
-      <div class="${styles.pulseDot}" style="background:${sev.color};box-shadow:0 0 12px ${sev.color}"></div>
+      <div class="${styles.pulseDot}"  style="background:${sev.color};box-shadow:0 0 14px ${sev.color}"></div>
     `;
     const m = new maplibregl.Marker({ element: el, anchor: 'center' })
       .setLngLat(incident.location)
@@ -97,7 +98,7 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
       container: containerRef.current,
       style: TILE_STYLE,
       center: [13.9, 52.1],
-      zoom: 6.8,
+      zoom: 6.5,
       attributionControl: false,
     });
 
@@ -108,7 +109,8 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
     popupRef.current = popup;
 
     map.on('load', () => {
-      // ── Corridor polygon fills ──────────────────────────────────────────
+
+      // ── Corridor polygon fills (wide bands) ──────────────────────────────
       CORRIDORS.forEach(c => {
         map.addSource(`${c.id}-poly`, {
           type: 'geojson',
@@ -117,20 +119,21 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
             geometry: { type: 'Polygon', coordinates: [corridorPolygon(c.coordinates)] },
           },
         });
+        // Outer glow fill
         map.addLayer({
           id: `${c.id}-fill`,
           type: 'fill',
           source: `${c.id}-poly`,
-          paint: { 'fill-color': c.color, 'fill-opacity': 0.07 },
+          paint: { 'fill-color': c.color, 'fill-opacity': 0.1 },
         });
+        // Border
         map.addLayer({
           id: `${c.id}-outline`,
           type: 'line',
           source: `${c.id}-poly`,
-          paint: { 'line-color': c.color, 'line-width': 1.5, 'line-opacity': 0.5 },
+          paint: { 'line-color': c.color, 'line-width': 1.5, 'line-opacity': 0.55 },
         });
-
-        // Centre dashed line
+        // Centre dashed spine
         map.addSource(c.id, {
           type: 'geojson',
           data: { type: 'Feature', geometry: { type: 'LineString', coordinates: c.coordinates } },
@@ -141,14 +144,14 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
           source: c.id,
           paint: {
             'line-color': c.color,
-            'line-width': 2,
-            'line-opacity': 0.9,
+            'line-width': 2.5,
+            'line-opacity': 0.95,
             'line-dasharray': [5, 3],
           },
         });
       });
 
-      // ── Heatmap layer (behind clusters) ────────────────────────────────
+      // ── Heatmap — visible from zoom 4 through 10, strong presence ────────
       map.addSource('incidents-heat', {
         type: 'geojson',
         data: INCIDENTS_GEOJSON,
@@ -157,33 +160,55 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
         id: 'incident-heat',
         type: 'heatmap',
         source: 'incidents-heat',
-        maxzoom: 10,
+        maxzoom: 11,
         paint: {
+          // Weight by severity
           'heatmap-weight': ['get', 'weight'],
-          'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 5, 0.6, 10, 1.5],
-          'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 5, 30, 10, 50],
-          'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 7, 0.7, 10, 0],
+          // More intense as you zoom in
+          'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 4, 1, 9, 3],
+          // Large radius so blobs are wide and visible
+          'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 4, 40, 9, 80],
+          // Stays visible from zoom 4 all the way to 10 where it fades
+          'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 4, 0.85, 9, 0.6, 11, 0],
           'heatmap-color': [
             'interpolate', ['linear'], ['heatmap-density'],
-            0,   'rgba(0,0,0,0)',
-            0.2, 'rgba(74,158,255,0.4)',
-            0.4, 'rgba(245,158,11,0.6)',
-            0.7, 'rgba(249,115,22,0.8)',
-            1.0, 'rgba(239,68,68,1)',
+            0,    'rgba(0,0,0,0)',
+            0.15, 'rgba(14,30,60,0.6)',
+            0.35, 'rgba(74,158,255,0.55)',
+            0.55, 'rgba(245,158,11,0.75)',
+            0.75, 'rgba(249,115,22,0.9)',
+            1.0,  'rgba(239,68,68,1)',
           ],
         },
       });
 
-      // ── Cluster source ──────────────────────────────────────────────────
+      // ── Cluster source ────────────────────────────────────────────────────
       map.addSource('incidents', {
         type: 'geojson',
         data: INCIDENTS_GEOJSON,
         cluster: true,
         clusterMaxZoom: 9,
-        clusterRadius: 52,
+        clusterRadius: 55,
       });
 
-      // Cluster circle
+      // Outer halo ring on clusters
+      map.addLayer({
+        id: 'cluster-halo',
+        type: 'circle',
+        source: 'incidents',
+        filter: ['has', 'point_count'],
+        paint: {
+          'circle-color': [
+            'step', ['get', 'point_count'],
+            '#4A9EFF', 5, '#F97316', 10, '#EF4444',
+          ],
+          'circle-radius': ['step', ['get', 'point_count'], 30, 5, 40, 10, 50],
+          'circle-opacity': 0.18,
+          'circle-stroke-width': 0,
+        },
+      });
+
+      // Main cluster circle
       map.addLayer({
         id: 'clusters',
         type: 'circle',
@@ -192,23 +217,20 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
         paint: {
           'circle-color': [
             'step', ['get', 'point_count'],
-            '#4A9EFF', 4,
-            '#F97316', 8,
-            '#EF4444',
+            '#4A9EFF', 5, '#F97316', 10, '#EF4444',
           ],
-          'circle-radius': ['step', ['get', 'point_count'], 20, 4, 28, 8, 36],
-          'circle-opacity': 0.85,
+          'circle-radius': ['step', ['get', 'point_count'], 20, 5, 28, 10, 36],
+          'circle-opacity': 0.9,
           'circle-stroke-width': 2,
           'circle-stroke-color': [
             'step', ['get', 'point_count'],
-            '#4A9EFF44', 4,
-            '#F9731644', 8,
-            '#EF444444',
+            '#4A9EFF', 5, '#F97316', 10, '#EF4444',
           ],
+          'circle-stroke-opacity': 0.4,
         },
       });
 
-      // Cluster label
+      // Cluster count label
       map.addLayer({
         id: 'cluster-count',
         type: 'symbol',
@@ -217,12 +239,29 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
         layout: {
           'text-field': '{point_count_abbreviated}',
           'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-          'text-size': 13,
+          'text-size': 14,
         },
         paint: { 'text-color': '#ffffff' },
       });
 
-      // Individual unclustered points
+      // Unclustered individual points — outer glow ring
+      map.addLayer({
+        id: 'unclustered-glow',
+        type: 'circle',
+        source: 'incidents',
+        filter: ['!', ['has', 'point_count']],
+        paint: {
+          'circle-color': ['get', 'color'],
+          'circle-radius': [
+            'match', ['get', 'severity'],
+            'CRITICAL', 22, 'HIGH', 18, 'MEDIUM', 14, 11,
+          ],
+          'circle-opacity': 0.15,
+          'circle-stroke-width': 0,
+        },
+      });
+
+      // Unclustered individual points — solid dot
       map.addLayer({
         id: 'unclustered-point',
         type: 'circle',
@@ -232,49 +271,49 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
           'circle-color': ['get', 'color'],
           'circle-radius': [
             'match', ['get', 'severity'],
-            'CRITICAL', 11, 'HIGH', 9, 'MEDIUM', 7, 6,
+            'CRITICAL', 12, 'HIGH', 10, 'MEDIUM', 8, 6,
           ],
           'circle-stroke-width': 2,
-          'circle-stroke-color': ['get', 'color'],
-          'circle-opacity': 0.9,
-          'circle-stroke-opacity': 0.4,
+          'circle-stroke-color': '#ffffff',
+          'circle-stroke-opacity': 0.3,
+          'circle-opacity': 0.95,
         },
       });
 
-      // Click: expand cluster
+      // Click cluster to expand
       map.on('click', 'clusters', (e) => {
         const features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
         const clusterId = features[0].properties.cluster_id;
         map.getSource('incidents').getClusterExpansionZoom(clusterId, (err, zoom) => {
           if (err) return;
-          map.easeTo({ center: features[0].geometry.coordinates, zoom });
+          map.easeTo({ center: features[0].geometry.coordinates, zoom: zoom + 0.5 });
         });
       });
 
-      // Hover: show popup on unclustered
+      // Hover unclustered
       map.on('mouseenter', 'unclustered-point', (e) => {
         map.getCanvas().style.cursor = 'pointer';
         const props = e.features[0].properties;
         const sev = SEVERITY_META[props.severity];
         popup.setLngLat(e.features[0].geometry.coordinates)
           .setHTML(`
-            <div style="font-size:12px;font-family:system-ui;color:#e2e8f0;padding:8px 10px;background:#181c22;border:1px solid #2a3140;border-radius:4px;min-width:160px">
-              <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:${sev.color};margin-bottom:3px">${sev.label} · ${props.type}</div>
-              <div style="font-weight:600;font-size:13px;margin-bottom:2px">${props.title}</div>
-              <div style="font-size:11px;color:#4A9EFF;font-weight:600">${props.source}</div>
-              <div style="font-size:10px;color:#4a5568;font-family:monospace;margin-top:2px">${props.id.toUpperCase()}</div>
+            <div style="font-size:12px;font-family:system-ui;color:#e2e8f0;padding:8px 10px;background:#181c22;border:1px solid #2a3140;border-radius:4px;min-width:170px">
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:${sev.color};margin-bottom:4px">${sev.label} · ${props.type}</div>
+              <div style="font-weight:600;font-size:13px;margin-bottom:3px">${props.title}</div>
+              <div style="font-size:11px;color:#4A9EFF;font-weight:600;margin-bottom:2px">${props.source}</div>
+              <div style="font-size:10px;color:#4a5568;font-family:monospace">${props.id.toUpperCase()}</div>
             </div>
           `)
           .addTo(map);
       });
-
       map.on('mouseleave', 'unclustered-point', () => {
         map.getCanvas().style.cursor = '';
         popup.remove();
       });
 
-      // Click: select incident
+      // Click unclustered to select
       map.on('click', 'unclustered-point', (e) => {
+        e.preventDefault();
         const props = e.features[0].properties;
         const inc = INCIDENTS.find(i => i.id === props.id);
         if (inc) onSelectIncident(inc);
@@ -295,7 +334,7 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
     };
   }, []);
 
-  // Assets layer
+  // Asset markers
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
@@ -304,7 +343,7 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
     else add();
   }, [layers.assets, addAssetMarkers, clearAssetMarkers]);
 
-  // Fly to selected + pulse ring
+  // Fly + pulse on selection
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !selectedIncident) return;
@@ -317,7 +356,7 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
     else go();
   }, [selectedIncident]);
 
-  // Corridor visibility
+  // Corridor visibility toggle
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !map.isStyleLoaded()) return;
@@ -329,12 +368,12 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
     });
   }, [layers.corridors]);
 
-  // Incident layer visibility
+  // Incident layers visibility toggle
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !map.isStyleLoaded()) return;
     const vis = layers.incidents ? 'visible' : 'none';
-    ['clusters','cluster-count','unclustered-point','incident-heat'].forEach(lid => {
+    ['cluster-halo', 'clusters', 'cluster-count', 'unclustered-glow', 'unclustered-point', 'incident-heat'].forEach(lid => {
       if (map.getLayer(lid)) map.setLayoutProperty(lid, 'visibility', vis);
     });
   }, [layers.incidents]);
