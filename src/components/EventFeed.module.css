@@ -1,0 +1,113 @@
+.feed {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid var(--border-dim);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.count {
+  background: var(--bg-raised);
+  color: var(--text-secondary);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 10px;
+}
+
+.hint {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  font-weight: 400;
+}
+
+.list {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 12px;
+  width: 100%;
+  text-align: left;
+  border-left: 2px solid transparent;
+  border-bottom: 1px solid var(--border-dim);
+  transition: background 0.1s;
+}
+
+.row:hover {
+  background: var(--bg-hover);
+}
+
+.row.active {
+  background: var(--bg-active);
+  border-left-color: var(--accent);
+}
+
+.typeIcon {
+  font-size: 13px;
+  width: 16px;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row.active .title {
+  color: #fff;
+}
+
+.meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.source {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.ts {
+  font-size: 10px;
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  color: var(--text-dim);
+}
+
+.sevDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}

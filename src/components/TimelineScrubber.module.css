@@ -1,0 +1,85 @@
+.container {
+  padding: 8px 16px 10px;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.track {
+  position: relative;
+  height: 24px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.selection {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(74, 158, 255, 0.15);
+  border-left: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  pointer-events: none;
+}
+
+.eventTick {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--high);
+  border-radius: 1px;
+  opacity: 0.7;
+  pointer-events: none;
+  transform: translateX(-1px);
+}
+
+.hourMark {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border-dim);
+  pointer-events: none;
+}
+
+.labels {
+  position: relative;
+  height: 14px;
+  margin-top: 2px;
+}
+
+.hourLabel {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-family: ui-monospace, monospace;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+
+.rangeDisplay {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 10px;
+  font-family: ui-monospace, monospace;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.window {
+  color: var(--accent);
+  font-weight: 600;
+}
