@@ -79,7 +79,7 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
   // Build or update a single animated asset marker
   const upsertAssetMarker = useCallback((map, asset, lngLat, rotateDeg) => {
     const isDegraded = asset.status === 'DEGRADED';
-    const color = isDegraded ? '#F59E0B' : '#10B981';
+    const color = isDegraded ? '#b8860b' : '#3a8a5c';
     const isMoving = !!ASSET_PATHS[asset.id];
 
     if (!assetMarkersRef.current[asset.id]) {
@@ -319,7 +319,7 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
       map.addLayer({
         id: 'cluster-halo', type:'circle', source:'incidents', filter:['has','point_count'],
         paint: {
-          'circle-color': ['step',['get','point_count'],'#4A9EFF',5,'#F97316',10,'#EF4444'],
+          'circle-color': ['step',['get','point_count'],'#4c7fa3',5,'#c0622b',10,'#c0392b'],
           'circle-radius': ['step',['get','point_count'],30,5,40,10,50],
           'circle-opacity': 0.18,
         },
@@ -327,11 +327,11 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
       map.addLayer({
         id: 'clusters', type:'circle', source:'incidents', filter:['has','point_count'],
         paint: {
-          'circle-color': ['step',['get','point_count'],'#4A9EFF',5,'#F97316',10,'#EF4444'],
+          'circle-color': ['step',['get','point_count'],'#4c7fa3',5,'#c0622b',10,'#c0392b'],
           'circle-radius': ['step',['get','point_count'],20,5,28,10,36],
           'circle-opacity': 0.9,
           'circle-stroke-width': 2,
-          'circle-stroke-color': ['step',['get','point_count'],'#4A9EFF',5,'#F97316',10,'#EF4444'],
+          'circle-stroke-color': ['step',['get','point_count'],'#4c7fa3',5,'#c0622b',10,'#c0392b'],
           'circle-stroke-opacity': 0.4,
         },
       });
@@ -378,7 +378,7 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
           <div style="font-size:12px;font-family:system-ui;color:#e2e8f0;padding:8px 10px;background:#181c22;border:1px solid #2a3140;border-radius:4px;min-width:170px">
             <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:${sev.color};margin-bottom:4px">${sev.label} · ${props.type}</div>
             <div style="font-weight:600;font-size:13px;margin-bottom:3px">${props.title}</div>
-            <div style="font-size:11px;color:#4A9EFF;font-weight:600;margin-bottom:2px">${props.source}</div>
+            <div style="font-size:11px;color:#4c7fa3;font-weight:600;margin-bottom:2px">${props.source}</div>
             <div style="font-size:10px;color:#4a5568;font-family:monospace">${props.id.toUpperCase()}</div>
           </div>
         `).addTo(map);

@@ -99,10 +99,10 @@ export const ASSETS = [
 ];
 
 export const SEVERITY_META = {
-  CRITICAL: { color:"#EF4444", label:"CRITICAL" },
-  HIGH:     { color:"#F97316", label:"HIGH" },
-  MEDIUM:   { color:"#F59E0B", label:"MEDIUM" },
-  LOW:      { color:"#6B7280", label:"LOW" },
+  CRITICAL: { color:"#c0392b", label:"CRITICAL" },
+  HIGH:     { color:"#c0622b", label:"HIGH" },
+  MEDIUM:   { color:"#b8860b", label:"MEDIUM" },
+  LOW:      { color:"#4a5260", label:"LOW" },
 };
 
 export const TYPE_META = {

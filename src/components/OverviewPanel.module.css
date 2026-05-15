@@ -87,7 +87,7 @@
 .barLabel {
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   color: var(--text-secondary);
   width: 72px;
   flex-shrink: 0;
@@ -144,7 +144,7 @@
 .assetStatus {
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.05em;
 }
 
 /* Recent */
@@ -185,6 +185,6 @@
 .recentSev {
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.05em;
   flex-shrink: 0;
 }

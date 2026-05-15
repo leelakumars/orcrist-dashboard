@@ -2,10 +2,10 @@ import styles from './ThreatBanner.module.css';
 import { INCIDENTS } from '../data/mockData';
 
 const LEVELS = [
-  { key: 'LOW',      color: '#10B981', bg: 'rgba(16,185,129,0.1)',  label: 'LOW',      desc: 'Normal operations. No active critical incidents.' },
-  { key: 'ELEVATED', color: '#F59E0B', bg: 'rgba(245,158,11,0.1)', label: 'ELEVATED', desc: 'Multiple high-severity incidents active. Increased vigilance.' },
-  { key: 'HIGH',     color: '#F97316', bg: 'rgba(249,115,22,0.1)', label: 'HIGH',     desc: 'Critical incidents active. Assets on alert posture.' },
-  { key: 'CRITICAL', color: '#EF4444', bg: 'rgba(239,68,68,0.12)', label: 'CRITICAL', desc: 'Multiple critical incidents. Immediate response required.' },
+  { key: 'LOW',      color: '#3a8a5c', bg: 'rgba(58,138,92,0.08)',   label: 'LOW',      desc: 'Normal operations. No active critical incidents.' },
+  { key: 'ELEVATED', color: '#b8860b', bg: 'rgba(184,134,11,0.08)',  label: 'ELEVATED', desc: 'Multiple high-severity incidents active. Increased vigilance.' },
+  { key: 'HIGH',     color: '#c0622b', bg: 'rgba(192,98,43,0.08)',   label: 'HIGH',     desc: 'Critical incidents active. Assets on alert posture.' },
+  { key: 'CRITICAL', color: '#c0392b', bg: 'rgba(192,57,43,0.1)',    label: 'CRITICAL', desc: 'Multiple critical incidents. Immediate response required.' },
 ];
 
 function getThreatLevel() {

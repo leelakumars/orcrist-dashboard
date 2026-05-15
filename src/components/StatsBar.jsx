@@ -73,7 +73,7 @@ export default function StatsBar({ filteredCount }) {
           <div className={styles.cardValue} style={{ color: critical > 0 ? 'var(--critical)' : 'var(--high)' }}>
             {critical} / {high}
           </div>
-          <Sparkline values={SEVERITY_TREND.CRITICAL} color={critical > 0 ? '#EF4444' : '#F97316'} />
+          <Sparkline values={SEVERITY_TREND.CRITICAL} color={critical > 0 ? '#c0392b' : '#c0622b'} />
         </div>
         <div className={styles.cardSub}>7-day critical trend</div>
       </div>
