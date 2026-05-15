@@ -186,7 +186,7 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
       container: containerRef.current,
       style: TILE_STYLE,
       center: [13.9, 52.1],
-      zoom: 6.5,
+      zoom: 8,
       attributionControl: false,
     });
 
@@ -300,7 +300,7 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
           'heatmap-weight': ['get', 'weight'],
           'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 4, 1, 9, 3],
           'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 4, 40, 9, 80],
-          'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 4, 0.75, 6.5, 0.5, 7.5, 0],
+          'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 4, 0.75, 5.5, 0.4, 6.2, 0],
           'heatmap-color': [
             'interpolate', ['linear'], ['heatmap-density'],
             0,    'rgba(0,0,0,0)',
