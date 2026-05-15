@@ -14,7 +14,7 @@
 }
 
 .layerRail {
-  width: 160px;
+  width: 180px;
   flex-shrink: 0;
   background: var(--bg-surface);
   border-right: 1px solid var(--border);
@@ -30,7 +30,7 @@
 }
 
 .rightPanel {
-  width: 300px;
+  width: 360px;
   flex-shrink: 0;
   background: var(--bg-surface);
   border-left: 1px solid var(--border);

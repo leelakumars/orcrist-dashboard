@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import styles from './App.module.css';
 import TopBar from './components/TopBar';
+import StatsBar from './components/StatsBar';
 import LayerPanel from './components/LayerPanel';
 import MapView from './components/MapView';
 import EventFeed from './components/EventFeed';
@@ -37,6 +38,7 @@ export default function App() {
   return (
     <div className={styles.shell}>
       <TopBar isLive={true} />
+      <StatsBar filteredCount={filteredIncidents.length} />
 
       <div className={styles.body}>
         <aside className={styles.layerRail}>

@@ -9,9 +9,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 12px 8px;
+  padding: 12px 14px 10px;
   border-bottom: 1px solid var(--border-dim);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: var(--text-dim);
@@ -21,14 +21,14 @@
 .count {
   background: var(--bg-raised);
   color: var(--text-secondary);
-  padding: 1px 5px;
+  padding: 2px 7px;
   border-radius: 3px;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .hint {
   margin-left: auto;
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-dim);
   letter-spacing: 0.04em;
   font-weight: 400;
@@ -42,8 +42,8 @@
 .row {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 10px;
+  padding: 11px 14px;
   width: 100%;
   text-align: left;
   border-left: 2px solid transparent;
@@ -61,8 +61,8 @@
 }
 
 .typeIcon {
-  font-size: 13px;
-  width: 16px;
+  font-size: 15px;
+  width: 18px;
   flex-shrink: 0;
   padding-top: 1px;
 }
@@ -73,7 +73,7 @@
 }
 
 .title {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-primary);
   white-space: nowrap;
@@ -87,27 +87,27 @@
 
 .meta {
   display: flex;
-  gap: 8px;
-  margin-top: 2px;
+  gap: 10px;
+  margin-top: 3px;
 }
 
 .source {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--accent);
 }
 
 .ts {
-  font-size: 10px;
+  font-size: 11px;
   font-family: ui-monospace, 'Cascadia Code', monospace;
   color: var(--text-dim);
 }
 
 .sevDot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
-  margin-top: 4px;
+  margin-top: 5px;
 }
