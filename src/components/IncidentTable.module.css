@@ -98,7 +98,7 @@
 }
 
 .mono {
-  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 11px;
   color: var(--text-dim) !important;
 }

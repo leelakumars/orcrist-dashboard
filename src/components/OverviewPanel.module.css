@@ -55,7 +55,7 @@
 
 .hourTick {
   font-size: 9px;
-  font-family: ui-monospace, monospace;
+  font-family: 'IBM Plex Mono', monospace;
   color: var(--text-dim);
   position: absolute;
   bottom: 0;

@@ -53,7 +53,7 @@
 }
 
 .mono {
-  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 18px;
   letter-spacing: 0.02em;
 }

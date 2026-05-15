@@ -29,7 +29,7 @@ function Sparkline({ values, color }) {
     <svg width={w} height={h} className={styles.spark}>
       <polyline points={pts} fill="none" stroke={color} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
       <circle cx={(((values.length-1)/(values.length-1))*w).toFixed(1)} cy={(h - ((values[values.length-1]-min)/range)*(h-2)-1).toFixed(1)} r="2.5" fill={color} />
-      <text x={w} y={h} textAnchor="end" fontSize="8" fill={color} fontFamily="monospace">
+      <text x={w} y={h} textAnchor="end" fontSize="8" fill={color} fontFamily="'IBM Plex Mono', monospace">
         {trend ? '▲' : '▼'}
       </text>
     </svg>

@@ -379,7 +379,7 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
             <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;color:${sev.color};margin-bottom:4px">${sev.label} · ${props.type}</div>
             <div style="font-weight:600;font-size:13px;margin-bottom:3px">${props.title}</div>
             <div style="font-size:11px;color:#4c7fa3;font-weight:600;margin-bottom:2px">${props.source}</div>
-            <div style="font-size:10px;color:#4a5568;font-family:monospace">${props.id.toUpperCase()}</div>
+            <div style="font-size:10px;color:#4a5568;font-family:'IBM Plex Mono',monospace">${props.id.toUpperCase()}</div>
           </div>
         `).addTo(map);
       });

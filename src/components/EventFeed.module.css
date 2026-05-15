@@ -100,7 +100,7 @@
 
 .ts {
   font-size: 11px;
-  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   color: var(--text-dim);
 }
 
