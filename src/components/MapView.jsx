@@ -300,7 +300,7 @@ export default function MapView({ selectedIncident, layers, onSelectIncident }) 
           'heatmap-weight': ['get', 'weight'],
           'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 4, 1, 9, 3],
           'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 4, 40, 9, 80],
-          'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 4, 0.85, 9, 0.6, 11, 0],
+          'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 4, 0.75, 6.5, 0.5, 7.5, 0],
           'heatmap-color': [
             'interpolate', ['linear'], ['heatmap-density'],
             0,    'rgba(0,0,0,0)',
